@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"os"
+
+	"github.com/ppiankov/elasticspectre/internal/commands"
 )
 
 var (
@@ -12,10 +14,12 @@ var (
 )
 
 func main() {
-	if len(os.Args) > 1 && os.Args[1] == "version" {
-		fmt.Printf("elasticspectre %s (commit: %s, built: %s)\n", version, commit, date)
-		return
+	commands.Version = version
+	commands.Commit = commit
+	commands.Date = date
+
+	if err := commands.Execute(); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
 	}
-	fmt.Println("elasticspectre — Elasticsearch/OpenSearch waste auditor")
-	os.Exit(0)
 }
