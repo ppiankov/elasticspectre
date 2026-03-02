@@ -47,6 +47,10 @@ func TestAuditHelpShowsFlags(t *testing.T) {
 }
 
 func TestAuditRequiresConnection(t *testing.T) {
+	t.Setenv("ELASTICSEARCH_URL", "")
+	t.Setenv("OPENSEARCH_URL", "")
+	t.Setenv("ELASTIC_CLOUD_ID", "")
+
 	_, err := executeCommand("audit")
 	if err == nil {
 		t.Fatal("expected error when neither --url nor --cloud-id provided")
@@ -66,16 +70,24 @@ func TestAuditRejectsBothConnections(t *testing.T) {
 	}
 }
 
-func TestAuditStubOutput(t *testing.T) {
-	out, err := executeCommand("audit", "--url", "http://localhost:9200")
-	if err != nil {
-		t.Fatalf("unexpected error: %v", err)
+func TestAuditInvalidFormat(t *testing.T) {
+	_, err := executeCommand("audit", "--url", "http://localhost:9200", "--format", "invalid")
+	if err == nil {
+		t.Fatal("expected error for unsupported format")
 	}
-	if !strings.Contains(out, "not yet implemented") {
-		t.Errorf("expected stub message, got %q", out)
+	if !strings.Contains(err.Error(), "unsupported format") {
+		t.Errorf("unexpected error: %v", err)
 	}
-	if !strings.Contains(out, "http://localhost:9200") {
-		t.Errorf("expected target URL in output, got %q", out)
+}
+
+func TestAuditConnectError(t *testing.T) {
+	// Use a port that nothing is listening on.
+	_, err := executeCommand("audit", "--url", "http://127.0.0.1:1")
+	if err == nil {
+		t.Fatal("expected connection error")
+	}
+	if !strings.Contains(err.Error(), "connecting to cluster") {
+		t.Errorf("unexpected error: %v", err)
 	}
 }
 
