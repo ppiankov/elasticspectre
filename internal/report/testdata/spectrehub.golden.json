@@ -1,0 +1,41 @@
+{
+  "schema": "spectre/v1",
+  "tool": "elasticspectre",
+  "version": "0.1.0",
+  "timestamp": "2024-01-15T10:30:00Z",
+  "target": {
+    "type": "elasticsearch-cluster",
+    "uri_hash": "abc123"
+  },
+  "findings": [
+    {
+      "type": "STALE_INDEX",
+      "severity": "high",
+      "index": "logs-2023",
+      "message": "Index 'logs-2023' has zero writes and searches.",
+      "storage_savings_bytes": 5368709120
+    },
+    {
+      "type": "NO_ILM_POLICY",
+      "severity": "medium",
+      "index": "logs-2024",
+      "message": "Index 'logs-2024' has no lifecycle policy."
+    },
+    {
+      "type": "SHARD_SPRAWL",
+      "severity": "medium",
+      "index": "metrics",
+      "message": "Index 'metrics' has too many shards.",
+      "heap_impact_bytes": 209715200
+    }
+  ],
+  "summary": {
+    "total_findings": 3,
+    "total_storage_savings_bytes": 5368709120,
+    "total_heap_savings_bytes": 209715200,
+    "by_severity": {
+      "high": 1,
+      "medium": 2
+    }
+  }
+}
