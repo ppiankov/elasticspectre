@@ -73,6 +73,11 @@ func New(opts Options) (*Client, error) {
 	}, nil
 }
 
+// BaseURL returns the resolved cluster URL.
+func (c *Client) BaseURL() string {
+	return c.baseURL
+}
+
 // SetHTTPClient replaces the default HTTP client (used in tests).
 func (c *Client) SetHTTPClient(hc *http.Client) {
 	c.httpClient = hc
