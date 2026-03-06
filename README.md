@@ -2,6 +2,7 @@
 
 [![CI](https://github.com/ppiankov/elasticspectre/actions/workflows/ci.yml/badge.svg)](https://github.com/ppiankov/elasticspectre/actions/workflows/ci.yml)
 [![Go Report Card](https://goreportcard.com/badge/github.com/ppiankov/elasticspectre)](https://goreportcard.com/report/github.com/ppiankov/elasticspectre)
+[![ANCC](https://img.shields.io/badge/ANCC-compliant-brightgreen)](https://ancc.dev)
 
 **elasticspectre** — Elasticsearch and OpenSearch waste auditor. Part of [SpectreHub](https://github.com/ppiankov/spectrehub).
 
@@ -63,10 +64,16 @@ spectrehub collect --tool elasticspectre
 
 elasticspectre operates in **read-only mode**. It inspects and reports — never modifies, deletes, or alters your indices.
 
+## Documentation
+
+| Document | Contents |
+|----------|----------|
+| [CLI Reference](docs/cli-reference.md) | Full command reference, flags, and configuration |
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
 
 ---
 
-Built by [Obsta Labs](https://github.com/ppiankov)
+Built by [Obsta Labs](https://obstalabs.dev)
